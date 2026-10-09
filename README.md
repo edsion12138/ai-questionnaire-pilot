@@ -30,6 +30,42 @@
 
 该目录遵循 portable plugin 结构。根目录有 `plugin.json`，skills 位于 `skills/` 下。可以将整个 `ai-questionnaire-pilot` 目录压缩为ZIP后，在支持上传Skills/Plugins的ChatGPT工作区中测试。具体可用性受账号、工作区和产品界面影响。
 
+### 命令行快速安装
+
+需要先安装 Node.js（提供 `npx`）。在终端中运行以下命令，可将本仓库的 5 个 Skills 安装到检测到的所有支持平台：
+
+```bash
+npx skills add edsion12138/ai-questionnaire-pilot --all
+```
+
+也可以只安装到指定平台：
+
+```bash
+# Codex 平台
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent codex
+
+# Claude Code 平台
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent claude-code
+
+# Cursor 平台
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent cursor
+
+# Gemini CLI 平台
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent gemini-cli
+
+# GitHub Copilot 平台
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent github-copilot
+
+# OpenCode 平台
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent opencode
+```
+
+默认安装到当前项目；要安装到用户级目录，可在命令中加入 `-g`，例如：
+
+```bash
+npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent codex -g
+```
+
 ## V1.0 的边界
 
 V1.0 不连接外部MCP服务，不自动访问问卷平台，也不自动发送调查。它提供方法工作流、分析代码和报告模板。正式研究仍需研究者负责抽样、伦理、知情同意、真人数据质量和最终统计决策。
