@@ -1,0 +1,12 @@
+{
+  "valid_range": [1, 5],
+  "missing_codes": [0, ""],
+  "parallel_iterations": 500,
+  "parallel_seed": 20261009,
+  "efa_factors": 3,
+  "dimensions": {
+    "D1": ["I01", "I02", "I03", "I04"],
+    "D2": ["I05", "I06", "I07", "I08"],
+    "D3": ["I09", "I10", "I11", "I12"]
+  }
+}

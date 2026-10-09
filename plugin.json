@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ai-questionnaire-pilot",
+  "version": "1.0.0",
+  "description": "AI silicon-sample pre-pilot workflow for questionnaire auditing, synthetic respondent design, psychometric stress testing, item iteration, and reproducible validation reporting."
+}
