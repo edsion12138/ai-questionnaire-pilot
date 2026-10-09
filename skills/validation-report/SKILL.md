@@ -14,6 +14,9 @@ Prefer one workbook rather than scattered files. Include, when applicable:
 - variable codebook;
 - raw data;
 - complete-case flags;
+- data-screening, missingness, and complete-case audit;
+- descriptive statistics;
+- common-method-bias diagnostics;
 - item analysis;
 - parallel analysis;
 - EFA loadings;
@@ -22,20 +25,21 @@ Prefer one workbook rather than scattered files. Include, when applicable:
 - CR/AVE;
 - Fornell-Larcker;
 - HTMT;
-- common-method-bias diagnostics;
 - criterion validity;
 - version comparison;
 - item deletion/rewrite log;
 - random seeds and reproducibility parameters;
 - human follow-up template.
 
-Clearly label historical analyses versus the current final analysis convention.
+Keep data preparation distinct from statistical quality checks. In the report, order quality checks as: descriptive statistics → CMB → item analysis → KMO/Bartlett/parallel analysis → EFA → CFA → reliability → convergent validity → discriminant validity → criterion-related/external validity. Place regression, path analysis, SEM, mediation, and moderation in a separate subsequent theory-testing section. Clearly label historical analyses versus the current final analysis convention.
 
 ### 2. Revision-process report
 Document:
 - theoretical starting structure;
-- wording/content audit;
-- silicon sample design;
+- questionnaire development and content validation (content validity, expert review, cognitive interviews);
+- silicon sample design, when applicable;
+- data screening, missing-data diagnosis, complete-case audit, and fixed EFA/CFA samples;
+- descriptive statistics and each formal quality-check stage in the standard order;
 - each analysis round;
 - item modifications and rationale;
 - model comparison;

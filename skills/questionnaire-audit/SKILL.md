@@ -5,6 +5,10 @@ description: Audit a draft questionnaire before human pilot testing. Use when th
 
 Use this skill before generating any silicon sample when the questionnaire structure has not yet been audited.
 
+## Development-stage boundary
+
+Treat theoretical construct development, content-validity review, expert review, and cognitive interviews as questionnaire development and content validation before formal administration. They are not statistical questionnaire-quality tests. Use this skill to organize the construct and item review; use `psychometric-pretest` for data screening and the subsequent statistical quality checks.
+
 ## Workflow
 
 1. Read the user's questionnaire, theoretical framework, target population, reference scales, and any coding/interview material they provide.
