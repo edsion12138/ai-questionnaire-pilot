@@ -1,44 +1,79 @@
-# AI Questionnaire Pilot v1.0
+# AI Questionnaire Pilot v1.1.0
 
 **中文名：AI问卷硅样本预调研**
 
-这是一个 skills-only plugin，用于在真人预测试之前，对新开发问卷进行低成本、可复现的“硅样本压力测试”。它不会把AI模拟数据当成真人实证结果，也不会以“把统计指标做漂亮”为目标，而是帮助研究者提前发现题项表达、维度边界、缺失机制、EFA/CFA结构、信效度与效标设计中的潜在问题。
+本项目提供一套可组合的问卷开发、参数化硅样本压力测试与心理测量分析 Skills，帮助研究者在真人预测试前发现构念边界、题项表达和测量结构中的问题。模拟结果用于方法演练与敏感性诊断，不提供真人效度证据。
 
 ## 包含的 5 个 Skills
 
-1. `questionnaire-audit`：理论结构、题项语言、维度边界与跨群体适用性审查。
-2. `silicon-sample-design`：分层硅样本设计、异质性建模、随机种子与缺失机制记录。
-3. `psychometric-pretest`：项目分析、完整案例审计、平行分析、PAF+Oblimin EFA、CFA、α/ω、CR/AVE、Fornell–Larcker、HTMT、CMB辅助诊断与效标相关。
-4. `questionnaire-iteration`：以“统计证据 + 理论依据 + 内容效度”进行保留、观察、改写、候选删除及版本比较。
-5. `validation-report`：统一输出全过程Excel、修订报告、复现参数和真人后续分析模板。
+1. `questionnaire-audit`：审查构念定义、题项语言、维度边界和内容覆盖。
+2. `silicon-sample-design`：设计分层硅样本、固定分析分组，并运行多随机种子与测量情景压力测试。
+3. `psychometric-pretest`：按数据准备和质量检验流程开展项目分析、EFA、CFA、信效度及效标分析。
+4. `questionnaire-iteration`：结合统计结果、理论角色和内容覆盖决定保留、观察、改写、删题或转移构念。
+5. `validation-report`：整理样本、分析结果、版本修订、复现参数和真人后续验证计划。
 
-## 推荐工作流
+## 标准工作流程
 
-初始问卷/理论材料 → Questionnaire Audit → Silicon Sample Design → Psychometric Pretest → Questionnaire Iteration → 独立第二轮硅样本复核 → 真人认知访谈 → 真人预测试 → Validation Report。
+### A. 问卷开发与内容验证
+
+理论和构念建构 → 内容效度 → 专家审查 → 认知访谈。该阶段用于确定测量内容与题项表达，不属于统计意义上的问卷质量检验。
+
+### B. 数据准备
+
+数据筛查 → 缺失诊断 → 完整案例审计 → 固定 EFA/CFA 样本与分组。记录样本从回收、筛查到各分析样本的变化；候选版本比较沿用原题库确定的完整案例，避免删题后样本量变化造成不公平比较。
+
+### C. 正式问卷质量检验
+
+**描述性统计 → CMB 检验 → 项目分析 → KMO/Bartlett 与平行分析 → EFA → CFA → 信度（α、ω、CR）→ 聚合效度（标准化载荷、AVE）→ 区分效度（Fornell–Larcker、HTMT）→ 效标关联/外部效度。**
+
+信度与效度在报告中放在 CFA 之后，归属于最终测量结构。回归、路径分析、SEM、中介和调节属于后续理论检验，应另设分析部分。
+
+## V1.1 多种子与情景压力测试
+
+在构念和题项通过开发阶段审查后，可运行 **12＋2＋2** 设计：12 个中等测量清晰度种子用于评估波动，另设 2 个高噪声情景和 2 个较高共同性情景用于敏感性检查。建议从 12 个中等种子中预先划定 8 个开发种子与 4 个保留种子；保留种子不参与候选筛选。4 个保留种子和 4 个压力情景检查的是模拟机制下的稳定性，不构成真人独立验证。
+
+种子、题项参数、情景、候选版本、样本完整案例和分析分组应在查看结果前冻结。所有候选版本须在相同响应数据和固定分组下比较，报告每轮结果、中位数、范围、达标次数及未通过情景；不挑选表现最佳的一轮，也不靠事后提高预设载荷追求达标。
+
+### 运行示例
+
+需要 Python 及依赖包。安装依赖并运行示例：
+
+```bash
+python -m pip install -r requirements-multiseed.txt
+python skills/silicon-sample-design/scripts/multiseed_sensitivity.py skills/silicon-sample-design/assets/example-multi-scenario-config.json --out demo16 --save-raw
+```
+
+脚本输出情景设计快照、生成参数、各轮和各版本结果汇总；使用 `--save-raw` 时另存 16 份模拟数据。运行随包测试：
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+详细方法见 [`multiseed-sensitivity-method.md`](skills/silicon-sample-design/references/multiseed-sensitivity-method.md)，删题记录见 [`multiseed-decision-worksheet.md`](skills/questionnaire-iteration/references/multiseed-decision-worksheet.md)，完整示例见 [`16-scenario-quick-start.md`](examples/16-scenario-quick-start.md)。
+
+### 模拟器能力边界
+
+新增脚本是**参数化硅样本模拟器**，不是 LLM 逐人扮演受访者的服务。它计算简化的 Cronbach's α、KMO、平行分析、PAF+Oblimin EFA 载荷/交叉载荷和 HTMT；不计算 ω、CITC、Bartlett 检验、CFA、CR、CFA-AVE、Fornell–Larcker、CMB 或效标关联效度。后续检验由 `psychometric-pretest` 按实际数据类型、同源数据和适用估计器完成。
 
 ## 核心方法原则
 
-- 硅样本只用于预预测试、压力测试和分析流程演练，不能替代真人预测试或正式验证。
-- 不人为先贴“高能力/低能力”标签再生成漂亮答案；差异应由真实背景变量、潜在个体差异和随机扰动共同形成。
-- “未接触/无法判断”不是0分或1分，应按缺失处理。
-- 项目描述统计允许各题有效N不同；EFA/CFA及主要信效度必须明确共同分析样本。
-- 默认优先 PAF + Oblimin/Promax，而不是把 PCA + Varimax 当成量表EFA的默认方案。
-- 不机械追求 α、AVE、CFI 或载荷阈值；删题必须同时考虑理论与内容效度。
-- 对与理论不一致的结果如实报告，并明确哪些问题必须留待真人样本验证。
+- 构念属性错置时先重审定义或调整构念归属，不用删题替代理论判断。
+- “未接触/无法判断”按结构性缺失处理，不编码为最低分。
+- EFA 与 CFA 使用预先固定的不同样本；候选版本沿用同一完整案例和分组。
+- 默认以 PAF 和斜交旋转开展潜变量 EFA；不把 PCA 等同于共同因子 EFA。
+- 删题同时考察统计诊断、理论角色、内容覆盖、题项冗余及跨群体适用性。
 
-## 安装/使用
+## 命令行快速安装
 
-该目录遵循 portable plugin 结构。根目录有 `plugin.json`，skills 位于 `skills/` 下。可以将整个 `ai-questionnaire-pilot` 目录压缩为ZIP后，在支持上传Skills/Plugins的ChatGPT工作区中测试。具体可用性受账号、工作区和产品界面影响。
+先安装 Node.js（提供 `npx`）。在终端中运行以下命令，可将全部 5 个 Skills 安装到检测到的支持平台：
 
-### 命令行快速安装
-
-需要先安装 Node.js（提供 `npx`）。在终端中运行以下命令，可将本仓库的 5 个 Skills 安装到检测到的所有支持平台：
+这些命令从仓库默认分支安装。`upgrade/v1.1.0` 合并到默认分支后，命令会安装 V1.1.0；合并前默认分支仍是 V1.0。
 
 ```bash
 npx skills add edsion12138/ai-questionnaire-pilot --all
 ```
 
-也可以只安装到指定平台：
+也可以指定平台安装：
 
 ```bash
 # Codex 平台
@@ -60,12 +95,12 @@ npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent github-cop
 npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent opencode
 ```
 
-默认安装到当前项目；要安装到用户级目录，可在命令中加入 `-g`，例如：
+默认安装到当前项目；添加 `-g` 可安装到用户级目录，例如：
 
 ```bash
 npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent codex -g
 ```
 
-## V1.0 的边界
+## 项目边界
 
-V1.0 不连接外部MCP服务，不自动访问问卷平台，也不自动发送调查。它提供方法工作流、分析代码和报告模板。正式研究仍需研究者负责抽样、伦理、知情同意、真人数据质量和最终统计决策。
+本项目不连接外部 MCP 服务、不访问问卷平台，也不自动发放调查。

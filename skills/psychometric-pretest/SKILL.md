@@ -138,3 +138,8 @@ If a validated criterion scale is available:
 - for cross-sectional same-time data use terms such as concurrent criterion-related validity, external validity, or nomological validity rather than predictive validity.
 
 Read `references/missing-data-rules.md`, `references/efa-cfa-rules.md`, and `references/validity-rules.md`. Use `scripts/psychometric_pipeline.py` as a reproducible starter when appropriate.
+
+<!-- MULTISEED-V1.1 -->
+## 分析来源与情景敏感性（v1.1）
+
+如收到16轮参数化硅样本结果，先识别是否仅完成了EFA/KMO/α/HTMT筛查。**不要把EFA主载荷平方当成CFA-AVE**，也不要把预设生成载荷作为已估计的标准化载荷；CFA、CR、Fornell–Larcker、单因子CFA、效标与CMB同源检验需要独立分析阶段完成。每轮都固定探索/验证组，保留真实样本完整案例定义，按核心能力/影响因素分别做EFA和CFA；效标单独建分并做外部相关。详见 `../silicon-sample-design/references/multiseed-sensitivity-method.md`。

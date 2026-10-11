@@ -51,3 +51,8 @@ Create a stress-test dataset, not a proof that the questionnaire works.
 8. Produce a sample-structure table and reproducibility log before psychometric analysis.
 
 Read `references/simulation-principles.md` and use `scripts/silicon_sample_generator.py` as a starting implementation when code execution is appropriate.
+
+<!-- MULTISEED-V1.1 -->
+## 12＋2＋2情景稳定性工作流（v1.1，可选增强）
+
+在初步结构通过内容审查之后，可以预先设定12个中等测量清晰度种子、2个高噪声种子、2个高共同性种子，固定每道题的生成参数，观察模型对随机实现与参数变化的敏感性。先用8个中等种子提出删题候选，再在4个**未参与筛选**的中等种子与4个压力/乐观情景种子上复核。所有版本须在每轮同一份数据和同一固定探索/验证分组上比较，完整案例依据原始题库一次确定，不能因为删题造成N改变。报告中位数、范围、达标次数与失败条件，禁止自动择优随机种子、后验抬高载荷，禁止把恢复预设因子解释为真实构念验证。根据问卷内容维度进行人工修订，不用统计阈值代替内容覆盖。详见 `references/multiseed-sensitivity-method.md`；运行 `scripts/multiseed_sensitivity.py`。**此脚本为参数生成器而非LLM API；CFA/CR/AVE等另行验证。**
