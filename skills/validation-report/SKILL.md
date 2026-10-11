@@ -69,3 +69,8 @@ Record:
 - item-number mapping across versions.
 
 Use the templates in `assets/analysis-workbook-template.xlsx` and `assets/revision-report-template.docx` when they match the user's workflow. Read `references/reporting-checklist.md` before finalization.
+
+<!-- MULTISEED-V1.1 -->
+## 16情景稳定性表格（v1.1）
+
+当使用12＋2＋2模式时，增设：①冻结情景参数与预声明16个随机种子；②各轮样本完整性及固定拆分；③同一轮候选版本对比；④12轮中位数、极值及达标频率；⑤2轮噪声与2轮高共同性情景；⑥8开发/4留出种子；⑦删题内容覆盖损失；⑧不可计算或暂缓的人类效度指标及后续复核计划。失败条件必须与通过条件同样展示，不允许只展示最优轮次。

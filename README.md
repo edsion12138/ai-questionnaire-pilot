@@ -1,4 +1,4 @@
-# AI Questionnaire Pilot v1.0
+# AI Questionnaire Pilot v1.1
 
 **中文名：AI问卷硅样本预调研**
 
@@ -66,6 +66,23 @@ npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent opencode
 npx skills add edsion12138/ai-questionnaire-pilot --skill '*' --agent codex -g
 ```
 
-## V1.0 的边界
+## 当前版本的边界
 
 V1.0 不连接外部MCP服务，不自动访问问卷平台，也不自动发送调查。它提供方法工作流、分析代码和报告模板。正式研究仍需研究者负责抽样、伦理、知情同意、真人数据质量和最终统计决策。
+
+<!-- MULTISEED-V1.1 -->
+## V1.1：12＋2＋2多种子稳定性与测量压力测试
+
+本版新增**固定12个中等测量清晰度种子＋2个高噪声种子＋2个高共同性种子**的情景分析协议：为所有版本保留固定题目参数、背景分层、完整案例和探索/验证分组，在同一响应实现上比较候选删题方案；同时汇总中位数、极值、达标次数，并按8个开发种子与4个保留种子分别输出结果。绝不自动挑选表现最好的随机种子。
+
+```bash
+python skills/silicon-sample-design/scripts/multiseed_sensitivity.py \
+  skills/silicon-sample-design/assets/example-multi-scenario-config.json \
+  --out demo16 --save-raw
+```
+
+- **方法详解**：`skills/silicon-sample-design/references/multiseed-sensitivity-method.md`
+- **删题审查表**：`skills/questionnaire-iteration/references/multiseed-decision-worksheet.md`
+- **运行示例**：`examples/16-scenario-quick-start.md`
+
+新脚本是**参数化硅样本模拟器**，不是LLM逐个扮演受访者的服务；用于比较测量情景敏感性。它生成EFA、KMO、平行分析、α和HTMT等筛查结果，**不自动计算CFA、CR、CFA-AVE、Fornell–Larcker、CMB或效标关联效度**；这些步骤仍必须在 `psychometric-pretest` 中按正确的估计器和同源数据完成。运行结果不能宣称为真人实证检验。
